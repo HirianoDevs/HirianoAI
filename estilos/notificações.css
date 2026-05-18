@@ -1,0 +1,152 @@
+/* Estilo do Modal de Notificações */
+.notifications-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: none; /* Escondido por padrão */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.notifications-modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--bg-sidebar);
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    animation: slideUp 0.3s ease;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.modal-header h3 { font-weight: 600; }
+
+#closeNotifications {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    display: block;
+    color: var(--primary-color);
+    opacity: 0.5;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Badge Pulsante */
+.notification-btn {
+    position: relative;
+}
+
+.notification-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    background-color: #ef4444; /* Vermelho */
+    border-radius: 50%;
+    border: 2px solid var(--bg-chat-area);
+}
+
+.notification-badge::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 2px solid #ef4444;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* Lista de Atualizações */
+.updates-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.update-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    transition: background 0.2s;
+    cursor: default;
+}
+
+.update-item:hover {
+    background: var(--bg-input-container);
+}
+
+.update-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.update-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.update-info strong {
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+.update-info p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.update-info span {
+    font-size: 0.7rem;
+    color: var(--text-disclaimer);
+    margin-top: 4px;
+}

@@ -1,0 +1,120 @@
+/* Container de Boas-vindas */
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.welcome-header {
+    margin-bottom: 30px;
+}
+
+.ai-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.welcome-header h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-ai);
+}
+
+/* Grid de Sugestões */
+.suggestions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: 700px;
+}
+
+.suggestion-card {
+    background: var(--bg-sidebar);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 16px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.suggestion-card i {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+}
+
+.suggestion-card p {
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+.suggestion-card:hover {
+    background: var(--bg-new-chat);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* Esconder a tela de boas vindas quando o chat começar */
+.chat-started .welcome-container {
+    display: none;
+}
+
+/* --- Ajustes de Responsividade --- */
+@media (max-width: 768px) {
+    /* Mantém a grid com 2 colunas no mobile */
+    .suggestions-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px; /* Reduzi um pouco o espaço para caber melhor */
+    }
+
+    .suggestion-card {
+        padding: 15px; /* Padding menor no mobile */
+        min-height: 120px; /* Garante uma altura mínima para alinhar os cards */
+    }
+
+    .suggestion-card p {
+        font-size: 0.8rem; /* Texto levemente menor para não quebrar muitas linhas */
+    }
+
+    .welcome-container { 
+        justify-content: flex-start; 
+        padding-top: 40px; 
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -260px;
+        top: 0;
+        height: 100%;
+        z-index: 100;
+        transition: 0.3s ease-in-out;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .chat-window { padding: 15px ; }
+    .input-area { 
+        padding: 20px 5%; 
+        margin-top: -60px;
+    }
+    .user-message { max-width: 90%; }
+}
+
+/* Ajuste para telas muito pequenas (iPhone SE, etc) */
+@media (max-width: 380px) {
+    .suggestions-grid {
+        grid-template-columns: 1fr; /* Volta para 1 coluna apenas se a tela for minúscula */
+    }
+}

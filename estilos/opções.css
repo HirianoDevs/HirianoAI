@@ -1,0 +1,55 @@
+/* Context Menu Moderno */
+.context-menu {
+    position: fixed;
+    z-index: 10000;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    width: 180px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    display: none; /* Escondido por padrão */
+    flex-direction: column;
+    padding: 6px;
+    animation: menuAppear 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+body.dark-mode .context-menu {
+    background: rgba(28, 31, 38, 0.9);
+    border-color: #333;
+}
+
+@keyframes menuAppear {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.menu-item-action {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    transition: 0.2s;
+}
+
+.menu-item-action:hover {
+    background: var(--primary-color);
+    color: white !important;
+}
+
+.menu-item-action i {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+}
+
+.menu-item-action:hover i { color: white; }
+
+.menu-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 4px 8px;
+}

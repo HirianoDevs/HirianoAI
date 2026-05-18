@@ -1,0 +1,9 @@
+/* 🔒 Bloquear seleção APENAS nas mensagens */
+.ai-message, 
+.user-message, 
+.ai-message-container {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}

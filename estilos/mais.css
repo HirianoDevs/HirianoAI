@@ -1,0 +1,76 @@
+/* Container do Anexo */
+.attachment-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#attachBtn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.4rem;
+    cursor: pointer;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, color 0.2s;
+}
+
+#attachBtn:hover {
+    color: var(--primary-color);
+}
+
+#attachBtn.active {
+    transform: rotate(45deg);
+    color: var(--primary-color);
+}
+
+/* Menu de Opções */
+.attachment-menu {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    background: var(--bg-sidebar);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 8px;
+    display: none; /* Escondido por padrão */
+    flex-direction: column;
+    gap: 4px;
+    min-width: 160px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    z-index: 100;
+    animation: slideInMenu 0.2s ease-out;
+}
+
+.attachment-menu.show {
+    display: flex;
+}
+
+.attach-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+    color: var(--text-main);
+    font-size: 0.9rem;
+}
+
+.attach-item:hover {
+    background: var(--bg-input-container);
+}
+
+.attach-item i {
+    font-size: 1.2rem;
+}
+
+@keyframes slideInMenu {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+

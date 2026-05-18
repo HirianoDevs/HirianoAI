@@ -1,0 +1,76 @@
+/* Estilização das listas da IA */
+.ai-message li {
+    margin-left: 20px;
+    list-style-type: disc; /* Isso cria o pontinho • */
+    margin-bottom: 8px;
+    color: var(--text-ai);
+}
+
+/* Ajuste para não ter espaços extras */
+.ai-message br + li {
+    display: none; /* Evita quebras duplas antes de listas */
+}
+
+
+/* Container do Loading Moderno */
+.typing-loader {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 15px;
+    background: var(--bg-input-container);
+    border-radius: 12px;
+    width: fit-content;
+    margin-bottom: 10px;
+    animation: fadeIn 0.3s ease;
+}
+
+.typing-loader span {
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    display: inline-block;
+    animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.typing-loader span:nth-child(1) { animation-delay: -0.32s; }
+.typing-loader span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typingBounce {
+    0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Suaviza a renderização do conteúdo enquanto a IA digita */
+.ai-message {
+    transition: all 0.1s ease-out;
+    min-height: 1.6em; /* Evita colapso de altura inicial */
+}
+
+/* Cursor de digitação opcional (estilo terminal) */
+.ai-message::after {
+    content: "▋";
+    display: inline-block;
+    vertical-align: middle;
+    animation: blink 0.8s infinite;
+    font-size: 0.8em;
+    color: var(--primary-color);
+    margin-left: 2px;
+}
+
+/* Remove o cursor quando as ações aparecem (indica fim da digitação) */
+.ai-message-container:has(.message-actions[style*="opacity: 1"]) .ai-message::after {
+    display: none;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}

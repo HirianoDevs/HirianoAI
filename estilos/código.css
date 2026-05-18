@@ -1,0 +1,50 @@
+/* Container do Bloco de Código - Garante que ele não expanda o site */
+.code-block-container {
+    background: #1e1e1e;
+    border-radius: 8px;
+    margin: 12px 0;
+    border: 1px solid #333;
+    max-width: 100%; /* Impede que o bloco seja maior que o chat */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Mantém o arredondamento das bordas */
+}
+
+/* O elemento PRE controla como o texto se comporta */
+pre {
+    padding: 15px;
+    margin: 0;
+    overflow-x: auto; /* Adiciona scroll horizontal se o código for cumprido */
+    
+    /* OPÇÃO A: Scroll Horizontal (Padrão de programador) */
+    white-space: pre; 
+    
+    /* OPÇÃO B: Quebra de linha automática (Se você prefere que o código desça) */
+    /* Descomente as duas linhas abaixo se preferir quebra em vez de scroll: */
+    /* white-space: pre-wrap; */
+    /* word-wrap: break-word; */
+}
+
+code {
+    font-family: 'Fira Code', 'Consolas', monospace;
+    font-size: 0.9rem;
+    color: #dcdcaa;
+    line-height: 1.5;
+    display: block;
+    min-width: 100%;
+}
+
+/* Estilização da Scrollbar para não ficar feia (Webkit) */
+pre::-webkit-scrollbar {
+    height: 6px;
+}
+
+pre::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 10px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
