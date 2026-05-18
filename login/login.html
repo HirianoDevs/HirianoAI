@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanga AI - Autenticação</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <div class="auth-wrapper">
+        <div class="auth-brand">
+            <div class="brand-content">
+                <div class="brand-logo"><i class="ri-shining-2-fill"></i></div>
+                <h1>HirianoAI</h1>
+                <p>A próxima geração de inteligência artificial, agora ao seu alcance.</p>
+            </div>
+            <div class="glow-circle circle-1"></div>
+            <div class="glow-circle circle-2"></div>
+        </div>
+
+        <div class="auth-form-section">
+            
+            <div class="form-container active" id="loginForm">
+                <h2>Olá novamente!</h2>
+                <p class="form-subtitle">Acesse sua conta para continuar.</p>
+
+                <form onsubmit="handleAuth(event)">
+                    <div class="input-group">
+                        <i class="ri-mail-line"></i>
+                        <input type="email" placeholder="E-mail" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="ri-lock-2-line"></i>
+                        <input type="password" class="pass-input" placeholder="Senha" required>
+                        <i class="ri-eye-off-line toggle-pass"></i>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox"> Lembre-se de mim
+                        </label>
+                        <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Entrar</button>
+                    <div class="divider"><span>ou continue com</span></div>
+                    <div class="social-btns">
+                        <button type="button" class="btn-social btn-google">
+                            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google"> Continuar com Google
+                        </button>
+                        <button type="button" class="btn-social btn-apple">
+                            <i class="ri-apple-fill"></i> Continuar com Apple
+                        </button>
+                    </div>
+                </form>
+                <p class="switch-form">Novo por aqui? <a href="#" onclick="toggleForms()">Crie uma conta</a></p>
+            </div>
+
+            <div class="form-container" id="registerForm">
+                <h2>Criar conta</h2>
+                <p class="form-subtitle">Cadastre-se para começar a usar a Wanga.</p>
+
+                <form onsubmit="handleRegister(event)">
+                    <div class="input-group">
+                        <i class="ri-user-line"></i>
+                        <input type="text" placeholder="Nome completo" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="ri-mail-line"></i>
+                        <input type="email" placeholder="E-mail" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="ri-lock-2-line"></i>
+                        <input type="password" id="regPassword" class="pass-input" placeholder="Senha" required>
+                        <i class="ri-eye-off-line toggle-pass"></i>
+                    </div>
+
+                    <div class="password-requirements">
+                        <p id="req-length"><i class="ri-checkbox-circle-line"></i> Mínimo 8 caracteres</p>
+                        <p id="req-upper"><i class="ri-checkbox-circle-line"></i> Uma letra maiúscula</p>
+                        <p id="req-number"><i class="ri-checkbox-circle-line"></i> Pelo menos um número</p>
+                    </div>
+
+                    <div class="strength-meter">
+                        <div class="strength-bar"><div id="strength-fill"></div></div>
+                        <span id="strength-text">Senha muito fraca</span>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="ri-shield-check-line"></i>
+                        <input type="password" id="confirmPassword" placeholder="Confirmar senha" required>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" required> 
+                            <span>Eu concordo com os <a href="#">Termos e Privacidade</a></span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="btnRegister" disabled>Cadastrar agora</button>
+                </form>
+                <p class="switch-form">Já tem conta? <a href="#" onclick="toggleForms()">Fazer login</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    updateProfile
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+// CONFIG
+const firebaseConfig = {
+  apiKey: "AIzaSyBKX2vhPtCg2viA1iBlpmW4VW6K1y3tXzA",
+  authDomain: "vilankulos-5dfb1.firebaseapp.com",
+  projectId: "vilankulos-5dfb1",
+  appId: "1:594610644591:web:afd23c7d677dead9de8f9a"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// 🔒 SE JÁ ESTIVER LOGADO → VAI PARA INDEX
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        window.location.href = "../index.html";
+    }
+});
+
+// Alternar forms
+window.toggleForms = function () {
+    document.getElementById('loginForm').classList.toggle('active');
+    document.getElementById('registerForm').classList.toggle('active');
+};
+
+// LOGIN
+window.handleAuth = async function (e) {
+    e.preventDefault();
+
+    const email = e.target.querySelector('input[type="email"]').value;
+    const password = e.target.querySelector('input[type="password"]').value;
+
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = "../index.html";
+    } catch (error) {
+        alert("Erro no login: " + error.message);
+    }
+};
+
+// REGISTRO
+window.handleRegister = async function (e) {
+    e.preventDefault();
+
+    const name = e.target.querySelector('input[type="text"]').value;
+    const email = e.target.querySelector('input[type="email"]').value;
+    const password = document.getElementById('regPassword').value;
+    const confirm = document.getElementById('confirmPassword').value;
+
+    if (password !== confirm) {
+        return alert("As senhas não coincidem!");
+    }
+
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+        // Salvar nome
+        await updateProfile(userCredential.user, {
+            displayName: name
+        });
+
+        window.location.href = "../index.html";
+    } catch (error) {
+        alert("Erro ao cadastrar: " + error.message);
+    }
+};
+</script>
+
+    <script>
+        function toggleForms() {
+            document.getElementById('loginForm').classList.toggle('active');
+            document.getElementById('registerForm').classList.toggle('active');
+        }
+
+        function handleAuth(e) {
+            e.preventDefault();
+            window.location.href = 'index.html';
+        }
+
+        // Lógica de Mostrar/Ocultar Senha
+        document.querySelectorAll('.toggle-pass').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('input');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    this.classList.replace('ri-eye-off-line', 'ri-eye-line');
+                } else {
+                    input.type = 'password';
+                    this.classList.replace('ri-eye-line', 'ri-eye-off-line');
+                }
+            });
+        });
+
+        // Validador de Senha e Progresso
+        const passInput = document.getElementById('regPassword');
+        const fill = document.getElementById('strength-fill');
+        const text = document.getElementById('strength-text');
+        const btnReg = document.getElementById('btnRegister');
+
+        passInput.addEventListener('input', () => {
+            const val = passInput.value;
+            let score = 0;
+
+            const checks = {
+                length: val.length >= 8,
+                upper: /[A-Z]/.test(val),
+                number: /[0-9]/.test(val)
+            };
+
+            if (checks.length) score++;
+            if (checks.upper) score++;
+            if (checks.number) score++;
+
+            // Atualiza Ícones
+            updateIcon('req-length', checks.length);
+            updateIcon('req-upper', checks.upper);
+            updateIcon('req-number', checks.number);
+
+            // Atualiza Barra e Cores
+            fill.className = ''; // limpa classes
+            if (score === 0) {
+                fill.style.width = '5%';
+                text.innerText = "Senha muito fraca";
+                text.style.color = "#94a3b8";
+            } else if (score === 1) {
+                fill.style.width = '33%';
+                fill.classList.add('low');
+                text.innerText = "Senha fraca";
+                text.style.color = "#ef4444";
+            } else if (score === 2) {
+                fill.style.width = '66%';
+                fill.classList.add('mid');
+                text.innerText = "Senha razoável";
+                text.style.color = "#f59e0b";
+            } else if (score === 3) {
+                fill.style.width = '100%';
+                fill.classList.add('high');
+                text.innerText = "Senha forte";
+                text.style.color = "#10b981";
+            }
+
+            // Ativa o botão apenas se cumprir os 3 requisitos
+            btnReg.disabled = score < 3;
+        });
+
+        function updateIcon(id, isValid) {
+            const el = document.getElementById(id);
+            if(isValid) {
+                el.classList.add('valid');
+                el.querySelector('i').className = 'ri-checkbox-circle-fill';
+            } else {
+                el.classList.remove('valid');
+                el.querySelector('i').className = 'ri-checkbox-circle-line';
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const p1 = document.getElementById('regPassword').value;
+            const p2 = document.getElementById('confirmPassword').value;
+            if(p1 !== p2) return alert("As senhas não coincidem!");
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
