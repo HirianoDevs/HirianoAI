@@ -1,0 +1,491 @@
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --text-main: #333333;
+    --text-muted: #6b7280;
+    --bg-input: #f3f4f6;
+    --border-color: #e5e7eb;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: var(--text-main);
+    height: 100vh;
+    overflow: hidden; /* Evita rolagem na tela principal */
+}
+
+/* Container Principal - Split Screen */
+.auth-wrapper {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+/* --- Lado Esquerdo (Branding) --- */
+.auth-brand {
+    flex: 1;
+    background: linear-gradient(135deg, #4f46e5 0%, #312e81 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 40px;
+}
+
+.brand-content {
+    position: relative;
+    z-index: 2;
+    max-width: 400px;
+}
+
+.brand-logo {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: #a5b4fc;
+}
+
+.brand-content h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+}
+
+.brand-content p {
+    font-size: 1.1rem;
+    color: #c7d2fe;
+    line-height: 1.6;
+}
+
+/* Bolhas de luz no fundo */
+.glow-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 1;
+}
+
+.circle-1 {
+    width: 400px;
+    height: 400px;
+    background: rgba(129, 140, 248, 0.4);
+    top: -100px;
+    left: -100px;
+}
+
+.circle-2 {
+    width: 300px;
+    height: 300px;
+    background: rgba(167, 139, 250, 0.3);
+    bottom: -50px;
+    right: -50px;
+}
+
+/* --- Lado Direito (Formulário) --- */
+.auth-form-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    position: relative;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    display: none; /* Escondido por padrão */
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Mostra apenas o formulário ativo */
+.form-container.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #111827;
+}
+
+.form-subtitle {
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}
+
+/* Inputs com Ícones */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group i {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    font-size: 1.2rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 14px 14px 45px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--bg-input);
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s ease;
+    color: var(--text-main);
+}
+
+.input-group input:focus {
+    border-color: var(--primary-color);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+/* Opções Extras */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.forgot-password {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* Botões */
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-bottom: 20px;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.btn-google {
+    width: 100%;
+    padding: 14px;
+    background: #ffffff;
+    color: #374151;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.2s;
+}
+
+.btn-google i {
+    color: #ea4335;
+    font-size: 1.2rem;
+}
+
+.btn-google:hover {
+    background: var(--bg-input);
+}
+
+/* Divisória "Ou" */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #9ca3af;
+    font-size: 0.85rem;
+}
+
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.divider span {
+    padding: 0 10px;
+}
+
+/* Trocar Formulário */
+.switch-form {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.switch-form a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.switch-form a:hover {
+    text-decoration: underline;
+}
+
+/* --- Responsividade para Celulares --- */
+@media (max-width: 768px) {
+    .auth-wrapper {
+        flex-direction: column;
+        overflow-y: auto; /* Permite rolar em telas muito pequenas */
+    }
+
+    .auth-brand {
+        flex: none;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .brand-content h1 { font-size: 2.2rem; }
+    .brand-content p { font-size: 1rem; }
+    
+    .auth-form-section {
+        flex: 1;
+        padding: 20px;
+        align-items: flex-start; /* Sobe o formulário no mobile */
+    }
+
+    .form-container {
+        padding: 20px 0;
+    }
+}
+
+
+/* ... (Mantenha as variáveis e resets do código anterior) ... */
+
+.password-requirements {
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #e2e8f0;
+}
+
+.password-requirements p {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+    transition: all 0.3s ease;
+}
+
+.password-requirements p i {
+    font-size: 0.9rem;
+}
+
+/* Quando o requisito é atendido */
+.password-requirements p.valid {
+    color: #10b981; /* Verde */
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.custom-checkbox input {
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    accent-color: var(--primary-color);
+}
+
+.custom-checkbox a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Estilo extra para o botão quando desativado ou hover */
+.btn-primary {
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    transition: transform 0.2s, background 0.2s;
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* Deixando o lado do formulário com um toque de luxo */
+.auth-form-section {
+    background: radial-gradient(circle at top right, #fdfdfd, #f4f7fb);
+}
+
+
+.btn-google img {
+    height: 20px;
+}
+
+/* ... (mantenha seu CSS base anterior) ... */
+
+/* Botões Sociais */
+.social-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-social {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-apple {
+    background: #000;
+    color: #fff;
+    border: none;
+}
+
+.btn-apple i { font-size: 1.2rem; }
+
+/* Olho na senha */
+.toggle-pass {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: color 0.2s;
+    z-index: 5;
+}
+
+.toggle-pass:hover { color: var(--primary-color); }
+
+/* Medidor de Força */
+.strength-meter {
+    margin-bottom: 20px;
+}
+
+.strength-bar {
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+#strength-fill {
+    height: 100%;
+    width: 0%;
+    transition: all 0.4s ease;
+}
+
+#strength-fill.low { background: #ef4444; } /* Vermelho */
+#strength-fill.mid { background: #f59e0b; } /* Amarelo */
+#strength-fill.high { background: #10b981; } /* Verde */
+
+#strength-text {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Estado Desabilitado do Botão */
+.btn-primary:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+
+
+
+
+
+
+/* Estilo base dos ícones dentro do grupo */
+.input-group i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #9ca3af;
+    pointer-events: none; /* Garante que o clique passe para o input se necessário */
+}
+
+/* Ícone da esquerda (E-mail, Cadeado, Usuário) */
+.input-group i:first-child {
+    left: 16px;
+}
+
+/* Ícone da direita (Olho/Toggle Password) */
+.input-group i.toggle-pass {
+    right: 16px;
+    left: auto; /* Garante que não herde o left de outros seletores */
+    cursor: pointer;
+    pointer-events: auto; /* Essencial para o clique funcionar no olho */
+    z-index: 10;
+}
+
+/* Ajuste no input para o texto não bater no olho */
+.input-group input.pass-input {
+    padding-right: 45px; /* Espaço para o olho na direita */
+}
